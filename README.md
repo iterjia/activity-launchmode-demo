@@ -25,9 +25,6 @@ another有三个Activity，分别是D、E、F。
 # A=singleInstance, C=singleTask, D=standard
 [A]->[C->D]->[A]->C 第二次从A启动C时，D被销毁，C到栈顶
 
-## 总结：
-# launchMode=singleInstance时系统中只有一个实例，由此启动的Activity都会创建新的任务栈
-
-# launchMode=singleTask时系统中只有一个实例，该特性决定了在启动该Activity时，在其顶部的Activity会被销毁，
-任务栈的情况配合taskAffinity属性有不同的结果，taskAffinity属性值默认是包名
-如果启动它的Activity与其具有相同的taskAffinity属性，则在同一个任务栈中，否则会创建新的任务栈
+# 总结：
+## launchMode=singleInstance时系统中只有一个实例，由此启动的Activity都会创建新的任务栈。
+## launchMode=singleTask时系统中只有一个实例，该特性决定了在启动该Activity时，在其顶部的Activity会被销毁。任务栈的情况配合taskAffinity属性有不同的结果，taskAffinity属性值默认是包名。如果启动它的Activity与其具有相同的taskAffinity属性，则在同一个任务栈中，否则会创建新的任务栈
