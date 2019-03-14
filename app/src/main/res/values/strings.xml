@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Demo</string>
+    <string name="btn_open_2">Launch Second Activity</string>
+    <string name="btn_open_3">Launch Third Activity</string>
+    <string name="btn_open_4">Launch Forth Activity</string>
+</resources>
