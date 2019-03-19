@@ -3,6 +3,7 @@
 app有三个Activity，分别是A、B、C。<br>
 another有三个Activity，分别是D、E、F。<br>
 通过调整类中getTargetTag方法中的目标值和修改AndroidManifest文件中Activity对应的LaunchMode属性，可以任意组合跳转方式进行验证。
+※可使用adb shell dumpsys activity activities命令查看详细信息
 
 ### ABC=standard
 [A->B->C->A1->B1->C1] 同一任务栈，不同实例，逐个返回
@@ -24,6 +25,12 @@ another有三个Activity，分别是D、E、F。<br>
 
 ### A=singleInstance, C=singleTask, D=standard
 [A]->[C->D]->[A]->C 第二次从A启动C时，D被销毁，C到栈顶
+
+### ABCD=standard, 启动时添加flag=FLAG_ACTIVITY_NEW_TASK
+[A->B->C]->[D]->B1 从C启动D时，因为taskAffiinity不同，所以D会创建新的任务栈；从D启动B时，会在原来的任务栈中创建新的实例，变为[A->B->C->B1]
+
+### ABCD=standard, 从ABC启动时添加flag=FLAG_ACTIVITY_NEW_TASK，从D启动时没有FLAG_ACTIVITY_NEW_TASK
+[A->B->C]->[D->B1]->[C1]->D 从C启动D时，因为taskAffiinity不同，所以D会创建新的任务栈；从D启动B时，因为没有FLAG_ACTIVITY_NEW_TASK且B是standard，所以创建新的实例B1，并和D在一个任务栈中；从B1启动C时，因为有FLAG_ACTIVITY_NEW_TASK且C对应的taskAffiinity的任务栈已存在，所以会在原来的任务栈中创建新的C1实例；从C1启动D时，有FLAG_ACTIVITY_NEW_TASK且D的任务栈已存在，则将DB任务栈移到顶部，显示B
 
 ## 总结：
 * launchMode=singleInstance时系统中只有一个实例，由此启动的Activity都会创建新的任务栈。
