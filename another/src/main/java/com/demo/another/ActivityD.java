@@ -51,15 +51,19 @@ public class ActivityD extends AppCompatActivity {
     }
 
     protected String getTargetTag() {
-        return "C";
+        return "B";
     }
 
     protected void startNextActivity() {
-        Intent intent = new Intent();
+        try {
+            Intent intent = new Intent();
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction("demo.intent.action." + getTargetTag());
-        intent.putExtra("tag", getTag());
-        startActivity(intent);
+            intent.setAction("demo.intent.action." + getTargetTag());
+            intent.putExtra("tag", getTag());
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("xwj", "startNextActivity, exception = " + e);
+        }
     }
 
     @Override

@@ -7,6 +7,6 @@ public class ActivityC extends ActivityA {
     }
 
     protected String getTargetTag() {
-        return "A";
+        return "D";
     }
 }
